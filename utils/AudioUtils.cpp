@@ -1,3 +1,11 @@
+/*************************************************************
+
+  LoopFinder: A spectral hybrid loopfindng algorithm
+
+  Brooklyn Rose Ludlow // August 2023 // MIT License
+
+**************************************************************/
+
 #include "AudioUtils.h"
 
 double* copyLPCMData(const double* lpcmData, const unsigned startPos, const unsigned size) {

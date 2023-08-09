@@ -1,3 +1,11 @@
+/*************************************************************
+
+  LoopFinder: A spectral hybrid loopfindng algorithm
+
+  Brooklyn Rose Ludlow // August 2023 // MIT License
+
+**************************************************************/
+
 #include "LoopFinder.h"
 #include "AudioUtils.h"
 #include "StatUtils.h"
@@ -263,11 +271,8 @@ std::pair<unsigned, unsigned> LoopFinderAlgorithm(
         )
       );
     }
-
-
   }
 
-  
   if (!finalLoops.empty()) {
     keepBestLoops(finalLoops, 1); // get best loop
     std::cout << "The top loop candidate is: " << finalLoops[0].first.first << ", " << finalLoops[0].first.second << " with quality: " << finalLoops[0].second << " and length: " << 1.0 * (finalLoops[0].first.second - finalLoops[0].first.first) / sampleRate << std::endl;

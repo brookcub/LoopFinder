@@ -1,3 +1,11 @@
+/*************************************************************
+
+  LoopFinder: A spectral hybrid loopfindng algorithm
+
+  Brooklyn Rose Ludlow // August 2023 // MIT License
+
+**************************************************************/
+
 #ifndef AUDIOUTILS_H
 #define AUDIOUTILS_H
 

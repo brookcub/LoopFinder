@@ -1,3 +1,11 @@
+/*************************************************************
+
+  LoopFinder: A spectral hybrid loopfindng algorithm
+
+  Brooklyn Rose Ludlow // August 2023 // MIT License
+
+**************************************************************/
+
 #include "Utils.h"
 
 std::vector<unsigned> strideSubsample(const std::vector<unsigned>& v, const unsigned consecutiveElements, const unsigned rejectWindow) {
