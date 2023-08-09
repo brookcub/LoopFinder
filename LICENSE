@@ -1,8 +1,8 @@
-LoopFinder is licensed under GPL 3.0. However, it contains code that is
-individually licensed under MIT License. GPL 3.0 applies to FFT.cpp/FFT.h
-and any copy of the software which includes them. All other code in
-LoopFinder is individually licensed under MIT license and can be used
-according to that license. Both licenses are included below.
+LoopFinder is released under the GNU General Public License version 3 (GPLv3).
+Individual source files, other than FFT.cpp and FFT.h, are available under the
+MIT License and can be individually used according to that license.
+FFT.cpp/FFT.h are licensed under GPLv3 and any copy of this software which
+includes them must abide by GPLv3. Both licenses are included below.
 
 
 MIT License
