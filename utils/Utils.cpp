@@ -69,3 +69,65 @@ void keepBestLoops(std::vector<std::pair<std::pair<unsigned int, unsigned int>, 
     // Reverse the vector to maintain the highest values first
     std::reverse(loops.begin(), loops.end());
 }
+
+
+std::vector<std::pair<unsigned, unsigned>> determineWindowsToCompare(double* spectralCentroids, unsigned numWindows, unsigned analysisBufferWindows, unsigned centroidComparisonRange) {
+    std::vector<std::pair<unsigned, unsigned>> windowsToCompare;
+
+    // Create a map to store centroid buckets and the corresponding window indices
+    std::unordered_map<unsigned, std::vector<unsigned>> buckets;
+
+    for (unsigned i = analysisBufferWindows; i < numWindows - analysisBufferWindows; i++) {
+        double centroid = spectralCentroids[i];
+        int bucketIndex = static_cast<int>(centroid / centroidComparisonRange);
+        buckets[bucketIndex].push_back(i);
+    }
+
+    // Add pairs of window indices to output vector
+    for (auto it = buckets.begin(); it != buckets.end(); ++it) {
+        unsigned bucketIndex = it->first;
+        const std::vector<unsigned>& windowIndices = it->second;
+
+        // Add all pairs of windows indices within the bucket
+        for (unsigned i = 0; i < windowIndices.size(); i++) {
+            unsigned indexA = windowIndices[i];
+            for (unsigned j = i + 1; j < windowIndices.size(); j++) {
+                unsigned indexB = windowIndices[j];
+                // smaller index always goes first
+                if (indexA < indexB) {
+                    windowsToCompare.push_back({indexA, indexB});
+                } else {
+                    windowsToCompare.push_back({indexB, indexA});
+                }
+            }
+        }
+
+        // Also add pairs between this bucket and the next largest bucket, if it exists
+        // This is to ensure that we don't miss any pairs of windows that are close in frequency but cross a bucket boundary
+        auto nextBucketIt = buckets.find(bucketIndex + 1);
+
+        if (nextBucketIt != buckets.end()) {
+            unsigned nextBucketIndex = nextBucketIt->first;
+            const std::vector<unsigned>& nextWindowIndices = nextBucketIt->second;
+
+            for (unsigned i = 0; i < windowIndices.size(); i++) {
+                unsigned indexA = windowIndices[i];
+                for (unsigned j = 0; j < nextWindowIndices.size(); j++) {
+                    unsigned indexB = nextWindowIndices[j];
+                    if (std::abs(spectralCentroids[indexA] - spectralCentroids[indexB]) > centroidComparisonRange) {
+                        continue;
+                    }
+
+                    if (indexA < indexB) {
+                        windowsToCompare.push_back({indexA, indexB});
+                    } else {
+                        windowsToCompare.push_back({indexB, indexA});
+                    }
+                }
+            }
+        }
+    }
+
+    return windowsToCompare;
+
+}

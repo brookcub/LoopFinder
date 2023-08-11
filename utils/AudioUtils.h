@@ -23,4 +23,6 @@ double normalizeSpectrumJSDivergence(double x);
 
 double normalizeSampleWindowMAD(double x);
 
+double computeSpectralCentroid(const double* powerSpectrum, unsigned sampleRate, unsigned windowSize);
+
 #endif // AUDIOUTILS_H
