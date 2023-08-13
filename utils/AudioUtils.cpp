@@ -67,3 +67,18 @@ double normalizeSampleWindowMAD(double x) {
 
     return x;
 }
+
+double computeSpectralCentroid(const double* powerSpectrum, unsigned sampleRate, unsigned windowSize) {
+    double totalPower = 0.0;
+    double weightedSum = 0.0;
+
+    // Calculate weighted sum of frequencies and total power
+    for (size_t i = 0; i < windowSize / 2; ++i) {
+        double frequency = static_cast<double>(i) * sampleRate / windowSize;
+        weightedSum += frequency * powerSpectrum[i];
+        totalPower += powerSpectrum[i];
+    }
+
+    // Calculate spectral centroid
+    return weightedSum / totalPower;
+}
